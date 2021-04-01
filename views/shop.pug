@@ -8,8 +8,16 @@ include shop_top
             h6.h-text-bold.h-text-blight Products
 
             for product in products 
-                .h-card-sm.h-outline-lightgreen 
-                    h5.h-text-bold #{product.product_name}
-                    p.h-text #{product.product_description}
+                -var p = product.product_varieties
+                .h-card.h-bg-purple 
+                    h5.h-text-bold.h-text-white #{product.product_name}
+                    p.h-text.h-text-white #{product.product_description}
+                    for variety in JSON.parse(p)
+                        .h-card-sm.h-bg-white 
+                            p.h-text.h-text-pinkish Size : #{variety.size}
+                            p.h-text.h-text-pinkish Color : #{variety.color}
+                            p.h-text.h-text-black Qty : #{variety.quantity}
+                            p.h-text-bold.h-text-pinkish Price : #{variety.price}
+                    button.h-button.h-bg-red.h-center-text.h-text-white Delete
 
 include shop_bottom
