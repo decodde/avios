@@ -86,12 +86,19 @@ const dbMethods = {
     updateBvnRec: async () => {
 
     },
+    delete : async () => {
+        var q =`DROP TABLE products`;
+        connection.query(q, (err, results, fields) => {
+            if (err) console.log(err.message)
+            else console.log(results)
+        })
+    },
     setup: async () => {
         var q = `CREATE TABLE IF NOT EXISTS products(
             id int primary key auto_increment,
-            product_name char(30) NOT NULL
-            product_description char(30) NOT NULL,
-            procuct_varieties JSON DEFAULT NULL,
+            product_name char(30) NOT NULL,
+            product_description char(200) NOT NULL,
+            product_varieties JSON NOT NULL,
             date_uploaded char(30) NOT NULL,
             date_edited char(30) NOT NULL,
             KEY (product_name, id)

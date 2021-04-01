@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
 const {RouteControl} = require("./routes/RouteControl");
+const { DatabaseControl } = require('./db/DatabaseControl');
 
 const PORT = 3000;
 app.use(bodyParser());
@@ -34,6 +35,7 @@ app.post("/product/create",RouteControl.product.new);
 app.post("/product/delete/:id",RouteControl.product.delete);
 app.post("/product/update/:id",RouteControl.product.update);
 
+DatabaseControl.setup();
 
 app.listen(process.env.PORT || PORT ,()=> {
     console.log("Avios running");
