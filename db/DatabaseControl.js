@@ -51,6 +51,8 @@ const dbMethods = {
             product.date_edited = new Date();
             product.date_updated = new Date();
             var {product_name,product_description,product_varieties,date_edited,date_updated} = product;
+            console.log(product)
+            console.log(product_name," ",product_description)
             var val = [product_name,product_description,product_varieties,date_edited,date_updated];
             var q = `INSERT INTO products(product_name,product_description,product_varieties,date_edited,date_updated) VALUES(?,?,?,?,?)`;
             return new Promise((resolve,reject) => {
@@ -99,7 +101,7 @@ const dbMethods = {
             product_name char(30) NOT NULL,
             product_description char(200) NOT NULL,
             product_varieties JSON NOT NULL,
-            date_uploaded char(30) NOT NULL,
+            date_updated char(30) NOT NULL,
             date_edited char(30) NOT NULL,
             KEY (product_name, id)
             )`

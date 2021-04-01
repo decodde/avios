@@ -11,7 +11,7 @@ const RouteControl = {
     },
     product  : {
         new : async (req,res) => {
-            console.log(req.body);
+            console.log("check::: ",req.body);
             res.json(await DatabaseControl.product.new(req.body));
         },
         delete : async (req,res) => {

@@ -105,16 +105,21 @@ script(type="text/javascript").
         var opt = {
             method : "post",
             headers : {
-
-            }
+                "Content-Type" : "application/json"
+            },
             body : JSON.stringify(product)
         }
+        var guine = new guiNe();
+        guine.loader.show();
         var req = await fetch("/product/create",opt);
         req = await req.json();
         if (req.type == "success"){
-
+            guine.loader.hide()
+            alert("Product added successfully  ");
+            document.location.reload();
         }
         else {
-            
+            alert(`Product could not be added \n Error:: ${req.errors}`);
+            guine.loader.close()
         }
     }) 
