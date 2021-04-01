@@ -13,6 +13,9 @@ const dbMethods = {
 
     },
     product: {
+        delete : async (id) => {
+
+        },
         all: async () => {
             var q = 'SELECT * FROM products';
             return new Promise((resolve, reject) => {
