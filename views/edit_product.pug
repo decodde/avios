@@ -1,0 +1,55 @@
+include top
+
+    body.gui-ne-body
+        .gui-ne-card-df 
+            h3.gui-ne-text Edit Product
+        form.gui-ne-center
+            input(type="hidden", name="product_id",value="#{id}")
+
+            div 
+                p.gui-ne-text Product Name
+                input.gui-ne-input(name="product_name",type="text",placeholder="product name", value ="#{product_name}")
+            div 
+                p.gui-ne-text Product Description
+                textarea.gui-ne-input(name="product_description", cols="30", rows="10", value="#{product_description}") 
+                  
+            div 
+                p.gui-ne-text Product Varieties
+                .gui-ne-card-df
+                    a.gui-ne-btn-wait(href="javascript:add_product_nav.add_variety()") Add Product Variety
+                    br
+                    .div#product_varieties_container
+                        .gui-ne-card-df.product_variety
+                            .gui-ne-row
+                                span.gui-ne-col-4
+                                    input.gui-ne-input(type="text",placeholder="size", name="") 
+                                br
+                                br
+                                span.gui-ne-col-6
+                                    input.gui-ne-input(type="text",placeholder="color")    
+                                br
+                                br
+                                span.gui-ne-col-4
+                                    input.gui-ne-input(type="number",placeholder="quantity")    
+                                br
+                                br
+                                span.gui-ne-col-6
+                                    input.gui-ne-input(type="number",placeholder="price")
+                            br
+                            button.gui-ne-right.gui-ne-btn-stop(onclick="javascript:add_product_nav.delete(this)") Delete
+                            br
+                        
+include bottom
+
+script(type="text/javascript").
+    var add_product_nav = {
+        add_variety : async () => {
+            var ex = document.getElementsByClassName('product_variety')[0].outerHTML;
+            console.log("DD::: ",ex)
+            document.getElementById("product_varieties_container").innerHTML += ex;
+        },
+        delete : async (e) => {
+            console.log(e);
+            e.parentElement.remove();
+        }
+    }

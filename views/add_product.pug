@@ -1,0 +1,105 @@
+include top 
+    body.gui-ne-body
+        .gui-ne-card-df 
+            h3.gui-ne-text Add Product
+        form.gui-ne-center(action = "product/create", method="POST")
+            div 
+                p.gui-ne-text Product Name
+                input.gui-ne-input(id="product_name",name="product_name",type="text",placeholder="product name") 
+            div 
+                p.gui-ne-text Product Description
+                textarea.gui-ne-input(id="product_description",name="product_description", cols="30", rows="10")
+                  
+            div 
+                p.gui-ne-text Product Varieties
+                .gui-ne-card-list
+                    span.gui-ne-btn-wait(onclick="add_product_nav.add_variety()") Add Product Variety
+                    br
+                    #product_varieties_container
+                        .gui-ne-card-df.product_variety(name="product_varieties")
+                            .gui-ne-row
+                                span.gui-ne-col-4
+                                    input.gui-ne-input(name="size:1",type="text",placeholder="size") 
+                                br
+                                br
+                                span.gui-ne-col-6
+                                    input.gui-ne-input(name="color1",type="text",placeholder="color")    
+                                br
+                                br
+                                span.gui-ne-col-4
+                                    input.gui-ne-input(name="quantity1",type="number",placeholder="quantity")    
+                                br
+                                br
+                                span.gui-ne-col-6
+                                    input.gui-ne-input(name="price1",type="number",placeholder="price")
+                            br
+                            a.gui-ne-right.gui-ne-btn-stop(onclick="javascript:add_product_nav.delete(this)") Delete
+                            br
+            button(type="submit").gui-ne-btn-go Submit Product                
+
+
+include bottom
+
+script(type="text/javascript").
+    let product_variety_html = `<div class="gui-ne-card-df product_variety" name="product_varieties"><div class="gui-ne-row"><span class="gui-ne-col-4"><input class="gui-ne-input" name="size" type="text" placeholder="size"></span><br><br><span class="gui-ne-col-6"><input class="gui-ne-input" name="color" type="text" placeholder="color"></span><br><br><span class="gui-ne-col-4"><input class="gui-ne-input" name="quantity" type="number" placeholder="quantity"></span><br><br><span class="gui-ne-col-6"><input class="gui-ne-input" name="price" type="number" placeholder="price"></span></div><br><a class="gui-ne-right gui-ne-btn-stop" onclick="javascript:add_product_nav.delete(this)">Delete</a><br></div>`
+    var add_product_nav = {
+        add_variety : async () => {
+            var ex = document.getElementsByClassName('product_variety');
+            var amt = ex.length;
+            document.getElementById("product_varieties_container").innerHTML += `<div class="gui-ne-card-df product_variety" name="product_varieties">
+                                                                                    <div class="gui-ne-row">
+                                                                                        <span class="gui-ne-col-4">
+                                                                                            <input class="gui-ne-input" name="size${amt + 1}" type="text" placeholder="size">
+                                                                                        </span>
+                                                                                        <br>
+                                                                                        <br>
+                                                                                        <span class="gui-ne-col-6">
+                                                                                            <input class="gui-ne-input" name="color${amt + 1}" type="text" placeholder="color">
+                                                                                        </span>
+                                                                                        <br>
+                                                                                        <br>
+                                                                                        <span class="gui-ne-col-4">
+                                                                                            <input class="gui-ne-input" name="quantity${amt + 1}" type="number" placeholder="quantity">
+                                                                                        </span>
+                                                                                        <br>
+                                                                                        <br>
+                                                                                        <span class="gui-ne-col-6">
+                                                                                            <input class="gui-ne-input" name="price${amt + 1}" type="number" placeholder="price">
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <br>
+                                                                                    <a class="gui-ne-right gui-ne-btn-stop" onclick="javascript:add_product_nav.delete(this)">
+                                                                                        Delete
+                                                                                    </a>
+                                                                                    <br>
+                                                                                </div>`;
+        },
+        delete : async (e) => {
+            console.log(e);
+            e.parentElement.remove();
+        }
+    }
+    document.forms[0].onsubmit = ((e)=>{
+        e.preventDefault();
+        console.log(e)
+        var all_product_variety = document.getElementsByClassName("product_variety");
+        var product_varieties = [];
+        for(var i=0; i < all_product_variety.length ; i++) {
+            var inputs = all_product_variety[i].getElementsByTagName("input");
+            var [size,color,quantity,price] = inputs;
+        
+            var product_variety = {
+                size : size.value,
+                color : color.value,
+                price : price.value,
+                quantity : quantity.value
+            }
+            product_varieties.push(product_variety);
+        }
+        var product = {
+            product_name : document.getElementById("product_name").value,
+            product_description : document.getElementById("product_description").value,
+            product_varieties : product_varieties
+        }
+        console.log(product)
+    }) 

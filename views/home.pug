@@ -1,0 +1,60 @@
+include top 
+    body.gui-ne-body
+        .gui-ne-card-list 
+            h5.gui-ne-text avios
+    
+        .gui-ne-card-btm.gui-ne-pail-center
+            div.gui-ne-show#loginPage
+                br
+                br
+                div
+                    span.gui-ne-text username &nbsp;
+                    input.gui-ne-input#login_username(type="text")
+                br
+                div
+                    span.gui-ne-text password &nbsp;
+                    input.gui-ne-input#login_password(type="password")
+                br
+                br
+                button.gui-ne-btn.gui-ne-btn-go.gui-ne-text Login
+                br
+                br
+                a.gui-ne-text(href="javascript:page.signup()") new here? signup
+
+            div.gui-ne-hide#signupPage
+                br
+                br
+                div
+                    span.gui-ne-text username &nbsp;
+                    input.gui-ne-input#login_username(type="text")
+                br
+                div
+                    span.gui-ne-text password &nbsp;
+                    input.gui-ne-input#login_password(type="password")
+                br
+                div
+                    span.gui-ne-text confirm password &nbsp;
+                    input.gui-ne-input#login_password(type="password")
+                br
+                br
+                button.gui-ne-btn.gui-ne-btn-go.gui-ne-text Signup
+                br
+                br
+                a.gui-ne-text(href="javascript:page.login()") signed up? login
+
+include bottom
+
+script(type="text/javascript").
+    var page = {
+        loginPage : () => document.getElementById("loginPage"),
+        signupPage : () => document.getElementById("signupPage"),
+        signup : async () => {
+            console.log(page.loginPage())
+            page.loginPage().classList.replace("gui-ne-show","gui-ne-hide");
+            page.signupPage().classList.replace("gui-ne-hide","gui-ne-show");
+        },
+        login : async () => {
+            page.signupPage().classList.replace("gui-ne-show","gui-ne-hide");
+            page.loginPage().classList.replace("gui-ne-hide","gui-ne-show");
+        }
+    }
