@@ -37,7 +37,7 @@ const dbMethods = {
                     if (e) reject(e.message);
                     else if (r) {
                         if (r.length > 0) {
-                            resolve(Response.success(Constants.DATA_RETRIEVE_SUCCESS, Number(r[0]["id"])));
+                            resolve(Response.success(Constants.DATA_RETRIEVE_SUCCESS, Number(r[0])));
                         }
                         else resolve(Response.success(Constants.DATA_EMPTY),[]);
                     }
@@ -53,8 +53,8 @@ const dbMethods = {
             var {product_name,product_description,product_varieties,date_edited,date_updated} = product;
             console.log(product)
             console.log(product_name," ",product_description)
-            var val = [product_name,product_description,product_varieties,date_edited,date_updated];
-            var q = `INSERT INTO products(product_name,product_description,product_varieties,date_edited,date_updated) VALUES(?,?,JSON_OBJECT('product_varieties',?),?,?)`;
+            var val = [product_name,product_description,JSON.stringify(product_varieties),date_edited,date_updated];
+            var q = `INSERT INTO products(product_name,product_description,product_varieties,date_edited,date_updated) VALUES(?,?,?,?,?)`;
             return new Promise((resolve,reject) => {
                 connection.query(q, val, (e, r, f) => {
                     if (e) {
@@ -69,24 +69,6 @@ const dbMethods = {
             })
             
         }
-    },
-    totalBank: async (bank) => {
-        var q = `SELECT COUNT(*) FROM bank${bank}`;
-        return new Promise((resolve, reject) => {
-            connection.query(q, (e, r, f) => {
-                if (e) reject(e.message);
-                else if (r) {
-                    console.log(r)
-                    resolve(r[0][`COUNT(*)`]);
-                }
-                else {
-                    resolve(r);
-                }
-            })
-        });
-    },
-    updateBvnRec: async () => {
-
     },
     delete : async () => {
         var q =`DROP TABLE products`;
