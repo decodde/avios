@@ -20,7 +20,7 @@ const dbMethods = {
                     if (e) reject(e.message);
                     else if (r) {
                         if (r.length > 0) {
-                            resolve(Response.success(Constants.DATA_RETRIEVE_SUCCESS), r);
+                            resolve(r);
                         }
                         else resolve(Response.success(Constants.DATA_EMPTY), r);;
                     }

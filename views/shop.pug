@@ -6,10 +6,10 @@ include shop_top
         
         .products.h-card.h-bg-white 
             h6.h-text-bold.h-text-blight Products
+
             for product in products 
-                .h-card-sm 
-                    p.
-
-
+                .h-card-sm.h-outline-lightgreen 
+                    h5.h-text-bold #{product.product_name}
+                    p.h-text #{product.product_description}
 
 include shop_bottom

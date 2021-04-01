@@ -114,7 +114,7 @@ script(type="text/javascript").
         var req = await fetch("/product/create",opt);
         req = await req.json();
         if (req.type == "success"){
-            guine.loader.hide()
+            guine.loader.close()
             alert("Product added successfully  ");
             document.location.reload();
         }
