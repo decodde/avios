@@ -54,7 +54,7 @@ const dbMethods = {
             console.log(product)
             console.log(product_name," ",product_description)
             var val = [product_name,product_description,product_varieties,date_edited,date_updated];
-            var q = `INSERT INTO products(product_name,product_description,product_varieties,date_edited,date_updated) VALUES(?,?,?,?,?)`;
+            var q = `INSERT INTO products(product_name,product_description,product_varieties,date_edited,date_updated) VALUES(?,?,JSON_OBJECT('product_varieties',?),?,?)`;
             return new Promise((resolve,reject) => {
                 connection.query(q, val, (e, r, f) => {
                     if (e) {
