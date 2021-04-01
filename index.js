@@ -18,7 +18,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get("/", RouteControl.page.home);
+app.get("/", RouteControl.page.shop)
+app.get("/product_management", RouteControl.page.home);
 app.get("/dashboard", RouteControl.page.dashboard);
 app.get("/add_product", RouteControl.page.add_product);
 app.get("/edit_product", RouteControl.page.edit_product);

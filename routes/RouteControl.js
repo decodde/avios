@@ -30,6 +30,10 @@ const RouteControl = {
         }
     },
     page : {
+        shop : async (req,res) => {
+            var products = await DatabaseControl.product.all();
+            res.render("shop",{products:products});
+        },
         add_product : async (req,res) => {
             res.render("add_product");
         },
