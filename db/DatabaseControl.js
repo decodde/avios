@@ -47,13 +47,12 @@ const dbMethods = {
                 })
             });
         },
-        new : async (details) => {
-            var product = details;
+        new : async (product) => {
             product.date_edited = new Date();
             product.date_updated = new Date();
-            
-            var val = [product_name,product_description,];
-            var q = `INSERT INTO products(product_name,product_description,date_edited,date_updated) VALUES(?,?,?,?,?)`;
+            var {product_name,product_description,product_varieties,date_edited,date_updated} = product;
+            var val = [product_name,product_description,product_varieties,date_edited,date_updated];
+            var q = `INSERT INTO products(product_name,product_description,product_varieties,date_edited,date_updated) VALUES(?,?,?,?,?)`;
             return new Promise((resolve,reject) => {
                 connection.query(q, val, (e, r, f) => {
                     if (e) {

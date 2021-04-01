@@ -79,7 +79,7 @@ script(type="text/javascript").
             e.parentElement.remove();
         }
     }
-    document.forms[0].onsubmit = ((e)=>{
+    document.forms[0].onsubmit = (async (e)=>{
         e.preventDefault();
         console.log(e)
         var all_product_variety = document.getElementsByClassName("product_variety");
@@ -102,4 +102,19 @@ script(type="text/javascript").
             product_varieties : product_varieties
         }
         console.log(product)
+        var opt = {
+            method : "post",
+            headers : {
+
+            }
+            body : JSON.stringify(product)
+        }
+        var req = await fetch("/product/create",opt);
+        req = await req.json();
+        if (req.type == "success"){
+
+        }
+        else {
+            
+        }
     }) 
