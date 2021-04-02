@@ -66,12 +66,15 @@ script(type="text/javascript").
     imageToBase = async (element) => {
         var file = element.files[0];
         var reader = new FileReader();
-        new Promise((resolve,reject) => {
-            reader.onloadend = function() {
+        reader.readAsDataURL(file);
+        return new Promise ((resolve,reject) => {
+            reader.onloadend = () => {
+                
+                console.log(reader.result)
                 resolve(reader.result);
             }
         })
-        reader.readAsDataURL(file);
+        
     }
 
     let product_variety_html = `<div class="h-card product_variety" name="product_varieties"><div class="h-row"><span class="h-col-4"><input class="h-input" name="size" type="text" placeholder="size"></span><br><br><span class="h-col-6"><input class="h-input" name="color" type="text" placeholder="color"></span><br><br><span class="h-col-4"><input class="h-input" name="quantity" type="number" placeholder="quantity"></span><br><br><span class="h-col-6"><input class="h-input" name="price" type="number" placeholder="price"></span></div><br><a class="h-right h-btn-stop" onclick="javascript:add_product_nav.delete(this)">Delete</a><br></div>`
@@ -139,10 +142,10 @@ script(type="text/javascript").
             var [size,color,quantity,price,image1,image2,image3] = inputs;
             console.log(inputs);
             console.log(image1);
-            image1.value ? image1 = (await imageToBase(image1)).toString() : image1 = "";
-            image2.value ? image2 = (await imageToBase(image2)).toString() : image2 = "";
-            image3.value ? image3 = (await imageToBase(image3)).toString() : image3 = "";
-
+            image1.value ? image1 = await imageToBase(image1) : image1 = "";
+            image2.value ? image2 = await imageToBase(image2) : image2 = "";
+            image3.value ? image3 = await imageToBase(image3) : image3 = "";
+            console.log(image1);
             var product_variety = {
                 size : size.value,
                 color : color.value,
