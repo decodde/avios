@@ -23,13 +23,16 @@ include shop_top
                     span.h-text to add products    
             for product in products 
                 -var p = product.product_varieties
-                -var imgs = product.images
                 .h-card.h-bg-purple 
                     h5.h-text-bold.h-text-white #{product.product_name}
                     p.h-text.h-text-white #{product.product_description}
                     for variety in JSON.parse(p)
+                        -var imgs = variety.images
                         .h-card-sm.h-bg-white 
-                            p imgs : #{imgs}
+                            for img in imgs
+                                div 
+                                if img
+                                    img.h-outline-black.h-card-sm(src=`${img}` height= "100px")
                             
                             p.h-text.h-text-pinkish Size : #{variety.size}
                             p.h-text.h-text-pinkish Color : #{variety.color}
