@@ -74,7 +74,7 @@ const RouteControl = {
     page : {
         shop : async (req,res) => {
             var products = await DatabaseControl.product.all();
-            var user = req.session.user
+            var user = req.session.user;
             if (user) {
                 if (user.type == "seller"){
                     res.render("shop",{products:products,user : user});
