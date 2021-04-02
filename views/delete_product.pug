@@ -1,0 +1,18 @@
+include shop_top 
+
+    body 
+        .h-card
+            span
+                span.h-text-bold.h-text-blight.h-text-left avios
+            span.h-outline-blight.h-card-sm.h-right
+                span.h-text.h-text-black.h-text-right Welcome, #{user.username} &nbsp;&nbsp;
+                a.h-button.h-text-white.h-bg-yellow(href="/logout") Logout
+        br
+        .h-card.h-bg-white
+            h4.h-text-bold.h-text-red Are you sure you want to delete #{product.product_name}
+            a.h-button.h-text-left(href="/product/delete/#{product.id}") Yes 
+            a.h-button.h-text-left(href="/dashboard") No 
+
+
+
+include shop_bottom

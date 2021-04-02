@@ -4,16 +4,17 @@ include top
             h5.gui-ne-text avios
     
         .gui-ne-card-btm.gui-ne-pail-center
-            div.gui-ne-show#loginPage
+            p.gui-ne-text #{message}
+            form.gui-ne-show#loginPage(action="/login", method="post")
                 br
                 br
                 div
                     span.gui-ne-text username &nbsp;
-                    input.gui-ne-input#login_username(type="text")
+                    input.gui-ne-input#login_username(name="loginUsername",type="text")
                 br
                 div
                     span.gui-ne-text password &nbsp;
-                    input.gui-ne-input#login_password(type="password")
+                    input.gui-ne-input#login_password(name="loginPassword",type="password")
                 br
                 br
                 button.gui-ne-btn.gui-ne-btn-go.gui-ne-text Login
@@ -21,21 +22,22 @@ include top
                 br
                 a.gui-ne-text(href="javascript:page.signup()") new here? signup
 
-            div.gui-ne-hide#signupPage
+            form.gui-ne-hide#signupPage(action="/signup", method="post")
                 br
                 br
                 div
                     span.gui-ne-text username &nbsp;
-                    input.gui-ne-input#login_username(type="text")
+                    input.gui-ne-input#login_username(name="signupUsername",required,type="text")
                 br
                 div
                     span.gui-ne-text password &nbsp;
-                    input.gui-ne-input#login_password(type="password")
+                    input.gui-ne-input#login_password(name="signupPassword",required,type="password")
                 br
                 div
-                    span.gui-ne-text confirm password &nbsp;
-                    input.gui-ne-input#login_password(type="password")
-                br
+                    span.gui-ne-text type &nbsp;
+                    select.gui-ne-select(name="type")
+                        option(value="seller") Seller 
+                        option(value="buyer")  Buyer
                 br
                 button.gui-ne-btn.gui-ne-btn-go.gui-ne-text Signup
                 br
