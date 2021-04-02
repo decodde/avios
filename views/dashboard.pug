@@ -32,8 +32,8 @@ include shop_top
                                 p.h-text.h-text-black Qty : #{variety.quantity}
                                 p.h-text-bold.h-text-pinkish Price : #{variety.price}
                         if user.type == "seller"
-                            a.h-button.h-bg-yellow.h-center-text.h-text-white(href="/edit_product_#{product.id}") Edit
-                            a.h-button.h-bg-red.h-center-text.h-text-white(href="/delete_product_#{product.id}") Delete
+                            a.h-button.h-bg-yellow.h-center-text.h-text-white(href=`/edit_product${product.id}`) Edit
+                            a.h-button.h-bg-red.h-center-text.h-text-white(href=`/delete_product${product.id}`) Delete
 
 
 include shop_bottom

@@ -10,7 +10,7 @@ include shop_top
         br
         .h-card.h-bg-white
             h4.h-text-bold.h-text-red Are you sure you want to delete #{product.product_name}
-            a.h-button.h-text-left(href="/product/delete/#{product.id}") Yes 
+            a.h-button.h-text-left(href=`/product/delete/${product.id}`) Yes 
             a.h-button.h-text-left(href="/dashboard") No 
 
 

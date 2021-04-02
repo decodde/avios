@@ -92,9 +92,11 @@ const RouteControl = {
             res.render("edit_product",{product:product});
         },
         delete_product : async (req,res) => {
+            var user = req.session.user;
             var {id} = req.params;
             var product = await DatabaseControl.product.single(id);
-            res.render("delete_product",{product:product});
+            console.log(product)
+            res.render("delete_product",{product:product.data,user:user});
         },
         dashboard : async (req,res) => {
             var user = req.session.user;

@@ -94,7 +94,7 @@ const dbMethods = {
                     if (e) reject(e.message);
                     else if (r) {
                         if (r.length > 0) {
-                            resolve(Response.success(Constants.DATA_RETRIEVE_SUCCESS, Number(r[0])));
+                            resolve(Response.success(Constants.DATA_RETRIEVE_SUCCESS, r[0]));
                         }
                         else resolve(Response.success(Constants.DATA_EMPTY),[]);
                     }
