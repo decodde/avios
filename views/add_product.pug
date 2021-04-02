@@ -42,15 +42,15 @@ include shop_top
                                     input.h-input(name="price1",type="number",placeholder="price")
                                 div 
                                     span.h-col-4
-                                        input.h-input.h-text(name="image1",type="file",placeholder="file")    
+                                        input.h-input.h-text(accept="image/png, image/jpeg",name="image1",type="file",placeholder="file")    
                                     br
                                     br
                                     span.h-col-4
-                                        input.h-input.h-text(name="image2",type="file",placeholder="file")    
+                                        input.h-input.h-text(accept="image/png, image/jpeg",name="image2",type="file",placeholder="file")    
                                     br
                                     br
                                     span.h-col-4
-                                        input.h-input.h-text(name="image3",type="file",placeholder="file")    
+                                        input.h-input.h-text(accept="image/png, image/jpeg",name="image3",type="file",placeholder="file")    
                                     br
                                     br
                             br
@@ -63,12 +63,15 @@ include shop_top
 include shop_bottom
 
 script(type="text/javascript").
-   function imageToBase(element) {
+    imageToBase = async (element) => {
         var file = element.files[0];
         var reader = new FileReader();
-        reader.onloadend = function() {
-            console.log('RESULT', reader.result)
-        }
+        new Promise((resolve,reject) => {
+            reader.onloadend = function() {
+                resolve(reader.result);
+                console.log('RESULT', reader.result)
+            }
+        })
         reader.readAsDataURL(file);
     }
 
@@ -97,6 +100,22 @@ script(type="text/javascript").
                                                                                         <span class="h-col-6">
                                                                                             <input class="h-input" name="price${amt + 1}" type="number" placeholder="price">
                                                                                         </span>
+                                                                                        <div>
+                                                                                            <span class="h-col-4">
+                                                                                                <input class="h-input h-text" accept="image/png, image/jpeg" name="image1" type="file" placeholder="file">
+                                                                                            </span>
+                                                                                            <br>
+                                                                                            <br>
+                                                                                            <span class="h-col-4">
+                                                                                                <input class="h-input h-text" accept="image/png,  image/jpeg" name="image2" type="file",placeholder="file">
+                                                                                            </span>
+                                                                                            <br>
+                                                                                            <br>
+                                                                                            <span class="h-col-4">
+                                                                                                <input class="h-input h-text" accept="image/png, image/jpeg" name="image3" type="file" placeholder="file">
+                                                                                            </span>
+                                                                                            <br>
+                                                                                            <br>
                                                                                     </div>
                                                                                     <br>
                                                                                     <a class="h-right h-button h-bg-red h-text h-text-white" onclick="javascript:add_product_nav.delete(this)">
@@ -119,9 +138,11 @@ script(type="text/javascript").
         for(var i=0; i < all_product_variety.length ; i++) {
             var inputs = all_product_variety[i].getElementsByTagName("input");
             var [size,color,quantity,price,image1,image2,image3] = inputs;
-            image1.value ? image1 = encodeImageFileAsURL(image1) : image1 = "";
-            image2.value ? image2 = encodeImageFileAsURL(image2) : image2 = "";
-            image3.value ? image3 = encodeImageFileAsURL(image3) : image3 = "";
+            console.log(inputs);
+            console.log(image1);
+            image1.value ? image1 = await imageToBase(image1) : image1 = "";
+            image2.value ? image2 = await imageToBase(image2) : image2 = "";
+            image3.value ? image3 = await imageToBase(image3) : image3 = "";
 
             var product_variety = {
                 size : size.value,
@@ -142,6 +163,7 @@ script(type="text/javascript").
             product_varieties : product_varieties
         }
         console.log(product)
+        /**/
         var opt = {
             method : "post",
             headers : {
@@ -158,4 +180,5 @@ script(type="text/javascript").
         else {
             alert(`Product could not be added \n Error:: ${req.errors}`);
         }
+        /**/
     }) 

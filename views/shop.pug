@@ -28,6 +28,9 @@ include shop_top
                     p.h-text.h-text-white #{product.product_description}
                     for variety in JSON.parse(p)
                         .h-card-sm.h-bg-white 
+                            for image in product.image
+                                if image 
+                                    img(src="#{image}", height = "100px")
                             p.h-text.h-text-pinkish Size : #{variety.size}
                             p.h-text.h-text-pinkish Color : #{variety.color}
                             p.h-text.h-text-black Qty : #{variety.quantity}
