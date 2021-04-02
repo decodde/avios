@@ -6,24 +6,24 @@ const { Response } = require("../misc/Response");
 const { Constants } = require("../misc/Constants");
 
 const hashPassword = (password) => {
-    var mykey = crypt.createCipher('aes-256-gcm', "avios",null);
+    var mykey = crypt.createCipher('aes-256-gcm', "avios", null);
     var mystr = mykey.update(password, 'utf8', 'hex');
     mystr += mykey.final('hex');
     return mystr;
 }
 
 const dbMethods = {
-    login : async (username,password) => {
+    login: async (username, password) => {
         var q = `SELECT * FROM avios_users WHERE username = '${username}' LIMIT 0,1`;
         return new Promise(async (resolve, reject) => {
             connection.query(q, (e, r, f) => {
                 if (e) reject(e.message);
                 else if (r) {
                     if (r.length > 0) {
-                        if (r[0]["password"] == hashPassword(password)){
-                            resolve(Response.success(Constants.LOGIN_SUCCESS,r[0]));
+                        if (r[0]["password"] == hashPassword(password)) {
+                            resolve(Response.success(Constants.LOGIN_SUCCESS, r[0]));
                         }
-                        else{
+                        else {
                             resolve(Response.error(Constants.LOGIN_FAILED))
                         }
                     }
@@ -35,21 +35,21 @@ const dbMethods = {
             })
         });
     },
-    signup : async (user) => {
-        var {signupUsername,signupPassword,type} = user;
-        console.log(user);
-        if (signupUsername && signupPassword){
+    signup: async (user) => {
+        var { signupUsername, signupPassword, type } = user;
+        //console.log(user);
+        if (signupUsername && signupPassword) {
             var dateJoined = new Date();
             signupPassword = hashPassword(signupPassword);
             type ? type = type.toLowerCase() : type = "buyer";
             var q = `INSERT INTO avios_users (username,password,date_joined,type) VALUES(?,?,?,?)`;
-            var val = [signupUsername,signupPassword,dateJoined,type];
-            return new Promise((resolve,reject) => {
+            var val = [signupUsername, signupPassword, dateJoined, type];
+            return new Promise((resolve, reject) => {
                 connection.query(q, val, (e, r, f) => {
                     if (e) {
                         console.log("--here---")
                         console.log(e.errno, " ::: ", e.sqlMessage);
-                        resolve(Response.error("Error with db connection",e.sqlMessage))
+                        resolve(Response.error("Error with db connection", e.sqlMessage))
                     }
                     else {
                         resolve(Response.success(Constants.SIGNUP_SUCCESS));
@@ -58,14 +58,14 @@ const dbMethods = {
             })
         }
         else return Response.error("Incomplete fields");
-        
+
     },
     product: {
-        delete : async (id) => {
+        delete: async (id) => {
             var q = `DELETE FROM products WHERE id = '${id}'`
             return new Promise((resolve, reject) => {
                 connection.query(q, (e, r, f) => {
-                    if (e) resolve(Response.error(`${Constants.DELETE_FAILED} ${id}`,e.message));
+                    if (e) resolve(Response.error(`${Constants.DELETE_FAILED} ${id}`, e.message));
                     else resolve(Response.success(Constants.DELETE_SUCCESS))
                 })
             });
@@ -96,7 +96,7 @@ const dbMethods = {
                         if (r.length > 0) {
                             resolve(Response.success(Constants.DATA_RETRIEVE_SUCCESS, r[0]));
                         }
-                        else resolve(Response.success(Constants.DATA_EMPTY),[]);
+                        else resolve(Response.success(Constants.DATA_EMPTY), []);
                     }
                     else {
                         resolve(r);
@@ -104,38 +104,38 @@ const dbMethods = {
                 })
             });
         },
-        new : async (product) => {
+        new: async (product) => {
             product.date_edited = new Date();
             product.date_updated = new Date();
-            var {product_name,product_description,product_varieties,date_edited,date_updated} = product;
-            console.log(product)
-            console.log(product_name," ",product_description)
-            var val = [product_name,product_description,JSON.stringify(product_varieties),date_edited,date_updated];
+            var { product_name, product_description, product_varieties, date_edited, date_updated } = product;
+            //console.log(product)
+            //console.log(product_name, " ", product_description)
+            var val = [product_name, product_description, JSON.stringify(product_varieties), date_edited, date_updated];
             var q = `INSERT INTO products(product_name,product_description,product_varieties,date_edited,date_updated) VALUES(?,?,?,?,?)`;
-            return new Promise((resolve,reject) => {
+            return new Promise((resolve, reject) => {
                 connection.query(q, val, (e, r, f) => {
                     if (e) {
-                        console.log("--here---")
+                        //console.log("--here---")
                         console.log(e.errno, " ::: ", e.sqlMessage);
-                        resolve(Response.error("Error with db connection",e.sqlMessage))
+                        resolve(Response.error("Error with db connection", e.sqlMessage))
                     }
                     else {
                         resolve(Response.success(Constants.PRODUCT_ADDED_SUCCESS));
                     };
                 })
             })
-            
+
         }
     },
-    delete : async () => {
-        var q =`DROP TABLE products`;
+    delete: async () => {
+        var q = `DROP TABLE products`;
         connection.query(q, (err, results, fields) => {
             if (err) console.log(err.message)
             else console.log(results)
         })
     },
-    delete2 : async () => {
-        var q =`DROP TABLE avios_users`;
+    delete2: async () => {
+        var q = `DROP TABLE avios_users`;
         connection.query(q, (err, results, fields) => {
             if (err) console.log(err.message)
             else console.log(results)
@@ -156,7 +156,7 @@ const dbMethods = {
             else console.log(results)
         })
     },
-    
+
     setup2: async () => {
         var q = `CREATE TABLE IF NOT EXISTS avios_users(
             id int primary key auto_increment,
