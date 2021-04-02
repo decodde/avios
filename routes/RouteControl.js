@@ -79,6 +79,7 @@ const RouteControl = {
                 if (user.type == "seller"){
                     res.render("shop",{products:products,user : user});
                 }
+                else res.render("shop",{products:products});
             }
             else res.render("shop",{products:products});
         },
