@@ -23,14 +23,14 @@ include shop_top
                     span.h-text to add products    
             for product in products 
                 -var p = product.product_varieties
-                .h-card.h-bg-purple 
+                .h-card.h-anim-rollin.h-bg-purple 
                     h5.h-text-bold.h-text-white #{product.product_name}
                     p.h-text.h-text-white #{product.product_description}
                     for variety in JSON.parse(p)
                         -var imgs = variety.images
                         .h-card-sm.h-bg-white 
                             for img in imgs
-                                div 
+                                div(style="display:block;overflow: auto;white-space: nowrap;")
                                 if img
                                     img.h-outline-black.h-card-sm(src=`${img}` height= "100px")
                             
@@ -38,9 +38,11 @@ include shop_top
                             p.h-text.h-text-pinkish Color : #{variety.color}
                             p.h-text.h-text-black Qty : #{variety.quantity}
                             p.h-text-bold.h-text-pinkish Price : #{variety.price}
+                        a.h-button.h-text-bold.h-bg-lightblue.h-center-text.h-text-white() Add to cart
                     if user
                         if user.type == "seller"
-                            a.h-button.h-bg-yellow.h-center-text.h-text-white(href=`/edit_product${product.id}`) Edit
-                            a.h-button.h-bg-red.h-center-text.h-text-white(href=`/delete_product${product.id}`) Delete
+                            a.h-button.h-text-bold.h-bg-yellow.h-center-text.h-text-white(href=`/edit_product${product.id}`) Edit
+                            a.h-button.h-text-bold.h-bg-red.h-center-text.h-text-white(href=`/delete_product${product.id}`) Delete
+
 
 include shop_bottom
