@@ -139,9 +139,9 @@ script(type="text/javascript").
             var [size,color,quantity,price,image1,image2,image3] = inputs;
             console.log(inputs);
             console.log(image1);
-            image1.value ? image1 = await imageToBase(image1) : image1 = "";
-            image2.value ? image2 = await imageToBase(image2) : image2 = "";
-            image3.value ? image3 = await imageToBase(image3) : image3 = "";
+            image1.value ? image1 = (await imageToBase(image1)).toString() : image1 = "";
+            image2.value ? image2 = (await imageToBase(image2)).toString() : image2 = "";
+            image3.value ? image3 = (await imageToBase(image3)).toString() : image3 = "";
 
             var product_variety = {
                 size : size.value,

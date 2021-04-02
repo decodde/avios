@@ -36,6 +36,9 @@ app.get("/add_product", RouteControl.auth, RouteControl.page.add_product);
 app.get("/edit_product_:id", RouteControl.auth, RouteControl.page.edit_product);
 app.get("/delete_product:id", RouteControl.auth, RouteControl.page.delete_product);
 
+app.get("/product/delete/:id", RouteControl.auth, RouteControl.product.delete);
+app.get("/product/update/:id", RouteControl.auth, RouteControl.product.update);
+
 app.post("/signup", RouteControl.signup);
 app.post("/login", RouteControl.login);
 
